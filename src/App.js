@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// App.jsx
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+import { AnimatePresence } from 'framer-motion'
+import Login from './pages/Login'
+import Users from './pages/Users'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Toaster position="top-right" />
+      <BrowserRouter>
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute>
+                  <Users />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </AnimatePresence>
+      </BrowserRouter>
+    </>
+  )
 }
 
-export default App;
+export default App
