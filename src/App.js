@@ -1,4 +1,3 @@
-// App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { AnimatePresence } from 'framer-motion'
@@ -13,7 +12,7 @@ function App() {
       <BrowserRouter>
         <AnimatePresence mode="wait">
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route
               path="/users"
               element={
@@ -22,7 +21,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AnimatePresence>
       </BrowserRouter>

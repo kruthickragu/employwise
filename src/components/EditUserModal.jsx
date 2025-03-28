@@ -88,7 +88,6 @@ const EditUserModal = ({ user, onClose }) => {
                 await dispatch(updateUser({ id: user.id, ...values })).unwrap()
                 setShowSuccess(true)
               } catch (error) {
-                // Handle error state here if needed
               }
             }}
           >

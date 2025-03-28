@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { logout } from '../features/auth/authSlice'
@@ -11,54 +11,22 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate()
   const location = useLocation()
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
 
-  useEffect(() => {
-    setIsMounted(true)
-    return () => setIsMounted(false)
-  }, [])
 
   useEffect(() => {
     if (!token) {
-      navigate('/login', { state: { from: location }, replace: true })
+      navigate('/', { state: { from: location }, replace: true })
     }
   }, [token, navigate, location])
 
   const handleLogout = () => {
     setShowLogoutConfirm(false)
     dispatch(logout())
-    navigate('/login', { replace: true })
+    navigate('/', { replace: true })
   }
 
   return token ? (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-purple-900 to-indigo-900">
-      {/* Animated background elements */}
-      <AnimatePresence>
-        {isMounted && [...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ 
-              scale: [0, 1, 0.5, 1],
-              opacity: [0, 0.1, 0],
-              rotate: [0, 180, 360]
-            }}
-            transition={{
-              duration: 15 + i * 3,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "linear"
-            }}
-            className="absolute border-2 border-white/5 rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 100 + 50}px`,
-              height: `${Math.random() * 100 + 50}px`,
-            }}
-          />
-        ))}
-      </AnimatePresence>
 
       <motion.nav
         initial={{ y: -100 }}
@@ -93,7 +61,7 @@ const ProtectedRoute = ({ children }) => {
         </div>
       </motion.nav>
 
-      <div className="relative z-10 pt-20">
+      <div className="relative z-10 pt-5">
         {children}
       </div>
 
