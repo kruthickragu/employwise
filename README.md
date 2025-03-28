@@ -35,7 +35,7 @@
 1. Clone the repository:
    ```bash
    git clone https://github.com/kruthickragu/employwise.git
-   cd user-management-app
+   cd employwise
    ```
 2. Install dependencies:
    ```bash
